@@ -1,9 +1,9 @@
-# realDurak
-
 from random import randint
 from Deque import Deque
 
 class Durak:
+    
+    
     
     def __init__(self):
         self.run()
@@ -12,7 +12,37 @@ class Durak:
         self.player1 = Deque()
         self.player2 = Deque()
         self.masterDeck = Deck()
+        self.masterDeck.randomShuffle()
         self.deal()
+        self.setInitialAttacker()
+        self.play()
+        
+    def play(self):
+        
+        while not self.gameOver():
+            s
+        
+    def gameOver(self):
+        
+        return len(player1) == 0 or len(player2) == 0
+    
+    def setInitialAttacker(self):
+        lowTrumpA = 16
+        lowTrumpB = 16
+        
+        for i in range(0, 6):
+            
+    
+    def setAttacker(self, player):
+        self.attacker = player
+        
+    def setDefender(self, player):
+        self.defender = player
+        
+    def switchPlayers(self):
+        temp = self.attacker
+        self.attacker = self.defender
+        self.defender = temp
         
         
     def deal(self):
@@ -22,29 +52,35 @@ class Durak:
             for i in range (0, 3):
                 self.player2.push_front(self.masterDeck.dealCard())
         
-        print(self.masterDeck.trumpCard())
+        print(str(self.masterDeck.trumpCard()) + " is the bottom card.")
+        
+        print(self.player1)
+        print(self.player2)
         
                 
 
 class Card:
             
     def __init__(self, card, suit):
-        self._card = card
-        self._suit = suit
-        self._cardValues = {2 : 'Two', 3 : 'Three', 4 : 'Four', 5 : 'Five', 6 : 'Six', 7 : 'Seven', 8 : 'Eight', 9 : 'Nine', 10 : 'Ten', 11 : 'Jack', 12 : 'Queen', 13 : 'King', 14 : 'Ace'}        
+        self.card = card
+        self.suit = suit
+        self.cardValues = {2 : 'Two', 3 : 'Three', 4 : 'Four', 5 : 'Five', 6 : 'Six', 7 : 'Seven', 8 : 'Eight', 9 : 'Nine', 10 : 'Ten', 11 : 'Jack', 12 : 'Queen', 13 : 'King', 14 : 'Ace'}        
     
     def __lt__(self, other):
         
-        return self._card < other._card
+        return self.card < other.card
     
     def __gt__(self, other):
-        return self._card > other._card
+        return self.card > other.card
     
     def __eq__(self, other):
-        return self._card == other._card
+        return self.card == other.card
     
     def __str__(self):
-        return self._cardValues[self._card] + " of " + self._suit + "s"
+        return self.cardValues[self.card] + " of " + self.suit + "s"
+    
+    def getSuit(self):
+        return self.suit
     
         
 class Deck:
@@ -58,8 +94,6 @@ class Deck:
             self.deck.push_front(Card(i, 'Spade'))
             self.deck.push_front(Card(i, 'Diamond'))
             self.deck.push_front(Card(i, 'Heart'))
-                
-        self.shuffle_deck()
         
     def __str__(self):
         
@@ -79,6 +113,20 @@ class Deck:
     def trumpCard(self):
         
         return self.deck.peek_back()
+    
+    def randomShuffle(self):
+        deckLength = len(self.deck)
+        tempArray = [None] * deckLength
+        
+        while len(self.deck) > 0:
+            x = randint(0, deckLength - 1)
+            
+            if tempArray[x] is None:
+                tempArray[x] = self.deck.pop_back()
+                
+        
+        for k in range(0, deckLength):
+            self.deck.push_front(tempArray[k])
             
     def shuffle_deck(self):
         
@@ -108,4 +156,4 @@ class Deck:
 
     
 if __name__ == '__main__':
-    Durak()
+    bob = Durak()
